@@ -176,5 +176,24 @@
         "special_instructions": "Organic please"
       }
     ]
+  },
+  "ORD_20250811_203438_8": {
+    "id": "ORD_20250811_203438_8",
+    "customer_id": "CUST_001",
+    "status": "pending",
+    "priority": "high",
+    "created_at": "2025-08-11T20:34:38.884796",
+    "estimated_preparation_time": 24,
+    "actual_preparation_time": null,
+    "delivery_address": null,
+    "delivery_instructions": null,
+    "notes": null,
+    "items": [
+      {
+        "food_item_id": "KALE_001",
+        "quantity": 1.5,
+        "special_instructions": "Organic please"
+      }
+    ]
   }
 }
