@@ -1,15 +1,17 @@
 """
-Workflow Optimization Algorithm
+Workflow Optimizer
 
-Core algorithm for optimizing kitchen workflow based on food spoilage,
-order priority, and resource constraints.
+Core optimization algorithms for kitchen workflow management.
+Uses only Python standard library.
 """
 from datetime import datetime, timedelta
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass
 import heapq
-from ..models.food_item import FoodItem
-from ..models.order import Order, OrderStatus, OrderPriority
+import math
+
+from models.food_item import FoodItem
+from models.order import Order, OrderStatus, OrderPriority
 
 
 @dataclass

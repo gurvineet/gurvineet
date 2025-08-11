@@ -1,0 +1,10 @@
+ID,Name,Category,Spoilage_Rate_Hours,Current_Quantity,Min_Quantity,Max_Quantity,Unit,Cost_Per_Unit,Preparation_Time_Minutes,Spoilage_Risk_Score,Status
+KALE_001,Fresh Kale,perishable,48,5.0,2.0,10.0,kg,8.5,15,0.000,OK
+MILK_001,Organic Milk,perishable,72,8.0,3.0,15.0,liters,4.2,5,0.000,OK
+BANANA_001,Fresh Bananas,perishable,120,12.0,5.0,20.0,pieces,0.3,3,0.000,OK
+BREAD_001,Artisan Bread,semi_perishable,168,20.0,8.0,30.0,pieces,3.5,8,0.000,OK
+CHEESE_001,Aged Cheddar,semi_perishable,240,6.0,2.0,12.0,kg,12.0,10,0.000,OK
+RICE_001,Basmati Rice,non_perishable,8760,25.0,10.0,50.0,kg,2.8,25,0.000,OK
+OIL_001,Olive Oil,non_perishable,8760,15.0,5.0,25.0,liters,8.0,2,0.000,OK
+ICE_001,Ice Cubes,frozen,720,100.0,20.0,200.0,kg,0.5,1,0.000,OK
+FROZEN_VEG_001,Frozen Mixed Vegetables,frozen,8760,18.0,5.0,30.0,kg,3.2,12,0.000,OK

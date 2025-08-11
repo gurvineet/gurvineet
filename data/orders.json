@@ -1,0 +1,161 @@
+{
+  "ORD_20250811_202816_1": {
+    "id": "ORD_20250811_202816_1",
+    "customer_id": "CUST_001",
+    "status": "pending",
+    "priority": "high",
+    "created_at": "2025-08-11T20:28:16.651470",
+    "estimated_preparation_time": 24,
+    "actual_preparation_time": null,
+    "delivery_address": null,
+    "delivery_instructions": null,
+    "notes": null,
+    "items": [
+      {
+        "food_item_id": "KALE_001",
+        "quantity": 1.5,
+        "special_instructions": "Organic please"
+      }
+    ]
+  },
+  "ORD_20250811_202818_2": {
+    "id": "ORD_20250811_202818_2",
+    "customer_id": "CUST_001",
+    "status": "pending",
+    "priority": "high",
+    "created_at": "2025-08-11T20:28:18.367827",
+    "estimated_preparation_time": 65,
+    "actual_preparation_time": null,
+    "delivery_address": "123 Main St, Downtown",
+    "delivery_instructions": null,
+    "notes": "Customer has dairy allergy - use almond milk if available",
+    "items": [
+      {
+        "food_item_id": "KALE_001",
+        "quantity": 1.5,
+        "special_instructions": "Wash thoroughly"
+      },
+      {
+        "food_item_id": "MILK_001",
+        "quantity": 2.0,
+        "special_instructions": "Cold delivery"
+      },
+      {
+        "food_item_id": "BANANA_001",
+        "quantity": 6.0,
+        "special_instructions": "Ripe but not overripe"
+      }
+    ]
+  },
+  "ORD_20250811_202818_3": {
+    "id": "ORD_20250811_202818_3",
+    "customer_id": "CUST_002",
+    "status": "pending",
+    "priority": "normal",
+    "created_at": "2025-08-11T20:28:18.367973",
+    "estimated_preparation_time": 102,
+    "actual_preparation_time": null,
+    "delivery_address": "456 Oak Ave, Midtown",
+    "delivery_instructions": null,
+    "notes": null,
+    "items": [
+      {
+        "food_item_id": "BREAD_001",
+        "quantity": 3.0,
+        "special_instructions": "Fresh baked"
+      },
+      {
+        "food_item_id": "CHEESE_001",
+        "quantity": 0.5,
+        "special_instructions": "Extra sharp"
+      },
+      {
+        "food_item_id": "RICE_001",
+        "quantity": 2.0,
+        "special_instructions": "Long grain preferred"
+      }
+    ]
+  },
+  "ORD_20250811_202818_4": {
+    "id": "ORD_20250811_202818_4",
+    "customer_id": "CUST_003",
+    "status": "pending",
+    "priority": "low",
+    "created_at": "2025-08-11T20:28:18.368125",
+    "estimated_preparation_time": 31,
+    "actual_preparation_time": null,
+    "delivery_address": "789 Pine Rd, Uptown",
+    "delivery_instructions": null,
+    "notes": null,
+    "items": [
+      {
+        "food_item_id": "OIL_001",
+        "quantity": 1.0,
+        "special_instructions": "Extra virgin"
+      },
+      {
+        "food_item_id": "FROZEN_VEG_001",
+        "quantity": 2.0,
+        "special_instructions": "Mixed variety"
+      }
+    ]
+  },
+  "ORD_20250811_202818_5": {
+    "id": "ORD_20250811_202818_5",
+    "customer_id": "CUST_004",
+    "status": "pending",
+    "priority": "urgent",
+    "created_at": "2025-08-11T20:28:18.368455",
+    "estimated_preparation_time": 52,
+    "actual_preparation_time": null,
+    "delivery_address": "321 Elm St, Downtown",
+    "delivery_instructions": "Ring doorbell twice",
+    "notes": null,
+    "items": [
+      {
+        "food_item_id": "KALE_001",
+        "quantity": 2.0,
+        "special_instructions": "Organic only"
+      },
+      {
+        "food_item_id": "MILK_001",
+        "quantity": 1.0,
+        "special_instructions": "Lactose-free"
+      },
+      {
+        "food_item_id": "ICE_001",
+        "quantity": 5.0,
+        "special_instructions": "For immediate use"
+      }
+    ]
+  },
+  "ORD_20250811_202818_6": {
+    "id": "ORD_20250811_202818_6",
+    "customer_id": "CUST_005",
+    "status": "pending",
+    "priority": "normal",
+    "created_at": "2025-08-11T20:28:18.368843",
+    "estimated_preparation_time": 253,
+    "actual_preparation_time": null,
+    "delivery_address": "654 Maple Dr, Suburbs",
+    "delivery_instructions": null,
+    "notes": "Business order for office catering",
+    "items": [
+      {
+        "food_item_id": "RICE_001",
+        "quantity": 5.0,
+        "special_instructions": "Basmati preferred"
+      },
+      {
+        "food_item_id": "OIL_001",
+        "quantity": 3.0,
+        "special_instructions": "Any premium brand"
+      },
+      {
+        "food_item_id": "BREAD_001",
+        "quantity": 8.0,
+        "special_instructions": "Various types"
+      }
+    ]
+  }
+}
