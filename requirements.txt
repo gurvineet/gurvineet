@@ -1,0 +1,2 @@
+# No external dependencies - using only Python standard library
+# Python 3.8+ required for dataclasses and typing features
