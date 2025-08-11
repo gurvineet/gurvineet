@@ -53,7 +53,9 @@ class TestOrderItem(unittest.TestCase):
     
     def test_preparation_time(self):
         """Test preparation time property."""
-        self.assertEqual(self.order_item.preparation_time_minutes, 15)
+        # preparation_time = food_item.preparation_time * quantity
+        # 15 minutes * 2.0 quantity = 30 minutes
+        self.assertEqual(self.order_item.preparation_time_minutes, 30)
 
 
 class TestOrder(unittest.TestCase):

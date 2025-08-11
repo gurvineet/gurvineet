@@ -167,5 +167,5 @@ class FoodItem:
     def __repr__(self) -> str:
         """Detailed string representation for debugging."""
         return (f"FoodItem(id='{self.id}', name='{self.name}', "
-                f"category={self.category}, spoilage_rate_hours={self.spoilage_rate_hours}, "
+                f"category={self.category.value}, spoilage_rate_hours={self.spoilage_rate_hours}, "
                 f"current_quantity={self.current_quantity}, unit='{self.unit}')")

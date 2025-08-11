@@ -135,12 +135,13 @@ class Order:
                 return True
         return False
     
-    def update_status(self, new_status: OrderStatus) -> None:
+    def update_status(self, new_status: OrderStatus, timestamp: Optional[datetime] = None) -> None:
         """
         Update the order status.
         
         Args:
             new_status: New status to set
+            timestamp: Optional timestamp for the status change
         """
         self.status = new_status
         
@@ -149,8 +150,11 @@ class Order:
             # Could add start time tracking here
             pass
         elif new_status == OrderStatus.READY:
-            # Could add completion time tracking here
-            pass
+            # Set actual preparation time if timestamp provided
+            if timestamp:
+                self.actual_preparation_time = timestamp
+            else:
+                self.actual_preparation_time = datetime.now()
     
     def get_total_cost(self) -> float:
         """Calculate total cost of the order."""
@@ -210,6 +214,8 @@ class Order:
         Returns:
             True if all items are available in sufficient quantity
         """
+        if not self.items:
+            return False
         for item in self.items:
             if item.food_item.current_quantity < item.quantity:
                 return False
@@ -230,8 +236,8 @@ class Order:
     
     def __str__(self) -> str:
         """String representation of the order."""
-        return (f"Order {self.id} - {self.status.value} - "
-                f"{len(self.items)} items - ${self.get_total_cost():.2f}")
+        return (f"Order {self.id} - {self.customer_id} - {self.status.value} - "
+                f"{self.priority.value} - {len(self.items)} items - ${self.get_total_cost():.2f}")
     
     def __repr__(self) -> str:
         """Detailed string representation for debugging."""
