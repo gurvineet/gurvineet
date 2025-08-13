@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  food-order-system:
+    build: .
+    container_name: java-food-order-fulfillment
+    volumes:
+      - ./target:/app/target
+    environment:
+      - JAVA_OPTS=-Xmx512m
+    command: java -jar app.jar
+    stdin_open: true
+    tty: true
+
+  test-runner:
+    build: .
+    container_name: java-food-order-tests
+    volumes:
+      - ./target:/app/target
+    environment:
+      - JAVA_OPTS=-Xmx512m
+    command: java -jar app.jar --help
+    depends_on:
+      - food-order-system
