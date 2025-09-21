@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  kitchen-optimizer:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: kitchen-optimizer
+    restart: unless-stopped
+    
+    # Security configurations
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+    
+    # Resource limits for security
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    
+    # Environment variables
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - DATA_DIR=/app/data
+    
+    # Volumes for data persistence
+    volumes:
+      - kitchen_data:/app/data:rw
+      - ./logs:/app/logs:rw
+    
+    # Network security
+    networks:
+      - kitchen_network
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import src.main; print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add monitoring service
+  # monitoring:
+  #   image: prom/prometheus:latest
+  #   container_name: kitchen-monitoring
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - kitchen_network
+
+volumes:
+  kitchen_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data
+
+networks:
+  kitchen_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

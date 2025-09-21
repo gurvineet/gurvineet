@@ -1,0 +1,67 @@
+# Version control
+.git
+.gitignore
+.github/
+
+# Documentation
+*.md
+docs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test files
+tests/
+test_*.py
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Security
+.secrets
+*.key
+*.pem
+*.p12
+
+# Data files (will be mounted as volume)
+data/
+*.csv
+*.json
+exports/
+reports/
