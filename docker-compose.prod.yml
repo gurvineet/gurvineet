@@ -1,0 +1,165 @@
+version: '3.8'
+
+# Production Docker Compose Configuration
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+  kitchen-optimizer:
+    # Override development settings for production
+    restart: always
+    
+    # Production environment variables
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=WARNING
+      - LOG_FORMAT=json
+      - METRICS_ENABLED=true
+    
+    # Production logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=kitchen-optimizer"
+    
+    # Production resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1G
+        reservations:
+          cpus: '1.0'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    
+    # Production volumes with backup
+    volumes:
+      - kitchen_data:/app/data:rw
+      - kitchen_logs:/app/logs:rw
+      - kitchen_backups:/app/backups:rw
+    
+    # Labels for monitoring and management
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kitchen.rule=Host(`kitchen.yourdomain.com`)"
+      - "traefik.http.routers.kitchen.tls=true"
+      - "traefik.http.routers.kitchen.tls.certresolver=letsencrypt"
+
+  # Add monitoring stack for production
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: kitchen-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - kitchen_network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: kitchen-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD_FILE=/run/secrets/grafana_password
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - kitchen_network
+    restart: unless-stopped
+    secrets:
+      - grafana_password
+
+  # Log aggregation
+  loki:
+    image: grafana/loki:latest
+    container_name: kitchen-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
+      - ./monitoring/loki-config.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - kitchen_network
+    restart: unless-stopped
+
+  # Reverse proxy with SSL termination
+  traefik:
+    image: traefik:v2.10
+    container_name: kitchen-traefik
+    command:
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=admin@yourdomain.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - kitchen_network
+    restart: unless-stopped
+
+volumes:
+  kitchen_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kitchen-optimizer/data
+  
+  kitchen_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kitchen-optimizer/logs
+  
+  kitchen_backups:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/kitchen-optimizer/backups
+  
+  prometheus_data:
+  grafana_data:
+  loki_data:
+
+secrets:
+  grafana_password:
+    file: ./secrets/grafana_password.txt
+
+networks:
+  kitchen_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
